@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* SUXXUS International - Vibrant E-commerce Design System */
 
 @layer base {
   :root {
@@ -17,8 +15,14 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
+    /* Brand Colors - Vibrant and Bold */
     --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary-foreground: 0 0% 100%;
+    
+    --brand-cyan: 180 100% 45%;
+    --brand-green: 145 100% 45%;
+    --brand-yellow: 60 100% 50%;
+    --brand-purple: 270 75% 60%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -26,15 +30,27 @@ All colors MUST be HSL.
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 145 100% 45%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 145 100% 45%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--brand-cyan)), hsl(var(--brand-green)), hsl(var(--brand-yellow)));
+    --gradient-card: linear-gradient(135deg, hsl(var(--brand-purple) / 0.1), hsl(var(--brand-cyan) / 0.1));
+    
+    /* Shadows */
+    --shadow-glow: 0 10px 40px hsl(var(--brand-cyan) / 0.3);
+    --shadow-card: 0 4px 20px hsl(var(--primary) / 0.1);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --radius: 0.5rem;
 
