@@ -12,11 +12,10 @@ const Header = () => {
   return (
     <header className="bg-background border-b sticky top-0 z-50">
       {/* Top promotional banner */}
-      <div className="bg-gradient-hero text-primary-foreground px-4 py-2 text-center text-sm font-medium">
+      <div className="bg-gradient-hero text-primary px-4 py-2 text-center text-sm font-medium">
         <div className="flex items-center justify-center gap-4">
-          <span>SPECIAL OFFER</span>
-          <span className="font-bold">Get Extra 10% Off</span>
-          <code className="bg-black/20 px-2 py-1 rounded text-xs">SUXXUS10</code>
+          <span>🔥 Get 15% OFF Sitewide – No Code Needed!</span>
+          <code className="bg-primary/20 px-2 py-1 rounded text-xs">SUXXUS15</code>
         </div>
       </div>
 
