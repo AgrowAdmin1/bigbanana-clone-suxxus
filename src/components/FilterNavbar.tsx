@@ -10,7 +10,7 @@ const FilterNavbar = ({ selectedCategory }: FilterNavbarProps) => {
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 
   // Define categories that should show size filters
-  const categoriesWithSizes = ["New Launches", "Shirts", "T-Shirts", "Joggers", "Jeans", "Trousers", "Shorts"];
+  const categoriesWithSizes = ["New Launches", "Shirts", "Polo Neck T-Shirts", "Round Neck T-Shirts", "Joggers", "Jeans", "Trousers", "Shorts"];
   
   // Don't show the navbar if no category is selected or if it's Home
   if (!selectedCategory || selectedCategory === "Home" || !categoriesWithSizes.includes(selectedCategory)) {

@@ -10,17 +10,15 @@ interface HeaderProps {
 
 const Header = ({ onCategorySelect }: HeaderProps) => {
   const mainNavItems = [
-    "Home", "New Launches", "Shirts", "T-Shirts", "Joggers", 
-    "Jeans", "Trousers", "Sweater", "Sweatshirts", "Kurtas", 
-    "Vest", "Jackets", "Shorts"
+    "Home", "New Launches", "Shirts", "Polo Neck T-Shirts", "Round Neck T-Shirts", "Joggers", 
+    "Jeans", "Trousers", "Shorts"
   ];
   
   const menuItems = ["Blogs", "Business Inquiry", "Support", "Return & Exchange"];
   
   const categories = [
-    "All Categories", "New Launches", "Shirts", "T-Shirts", "Joggers", 
-    "Jeans", "Trousers", "Sweater", "Sweatshirts", "Kurtas", 
-    "Vest", "Jackets", "Shorts"
+    "All Categories", "New Launches", "Shirts", "Polo Neck T-Shirts", "Round Neck T-Shirts", "Joggers", 
+    "Jeans", "Trousers", "Shorts"
   ];
 
   return (
