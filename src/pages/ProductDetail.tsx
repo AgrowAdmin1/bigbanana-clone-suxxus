@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { Heart, Share2, ShoppingCart, Star, ChevronLeft, ChevronRight, Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,11 +7,8 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 
-interface ProductDetailProps {
-  productId: string;
-}
-
-const ProductDetail = ({ productId }: ProductDetailProps) => {
+const ProductDetail = () => {
+  const { handle } = useParams<{ handle: string }>();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -19,7 +17,7 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
 
   // Mock product data - in real app, this would come from Shopify
   const product = {
-    id: productId,
+    id: handle || "default-product",
     name: "Premium Cotton Polo T-Shirt",
     price: 1999,
     originalPrice: 2999,
@@ -70,7 +68,7 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
       return;
     }
     // Add to cart logic here
-    console.log("Adding to cart:", { productId, size: selectedSize, color: selectedColor, quantity });
+    console.log("Adding to cart:", { productId: product.id, size: selectedSize, color: selectedColor, quantity });
   };
 
   const handleBuyNow = () => {
@@ -79,7 +77,7 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
       return;
     }
     // Buy now logic here
-    console.log("Buy now:", { productId, size: selectedSize, color: selectedColor, quantity });
+    console.log("Buy now:", { productId: product.id, size: selectedSize, color: selectedColor, quantity });
   };
 
   return (
