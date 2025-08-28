@@ -1,8 +1,148 @@
 // Shopify Storefront API configuration and utilities
 export const SHOPIFY_CONFIG = {
-  domain: process.env.VITE_SHOPIFY_DOMAIN || 'your-shop.myshopify.com',
-  storefrontToken: process.env.VITE_SHOPIFY_STOREFRONT_TOKEN || 'your-storefront-token',
-  apiVersion: '2024-01'
+  domain: process.env.VITE_SHOPIFY_DOMAIN || 'demo-store.myshopify.com',
+  storefrontToken: process.env.VITE_SHOPIFY_STOREFRONT_TOKEN || 'demo-token',
+  apiVersion: '2024-01',
+  useMockData: true // Enable mock data for demo
+};
+
+// Mock products for demo
+const MOCK_PRODUCTS = {
+  edges: [
+    {
+      node: {
+        id: 'gid://shopify/Product/1',
+        title: 'Premium Wireless Headphones',
+        handle: 'premium-wireless-headphones',
+        description: 'High-quality wireless headphones with active noise cancellation and superior sound quality.',
+        images: {
+          edges: [{
+            node: {
+              url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop',
+              altText: 'Premium Wireless Headphones'
+            }
+          }]
+        },
+        variants: {
+          edges: [{
+            node: {
+              id: 'gid://shopify/ProductVariant/1',
+              title: 'Black / One Size',
+              price: { amount: '299.99', currencyCode: 'USD' },
+              compareAtPrice: { amount: '399.99', currencyCode: 'USD' },
+              availableForSale: true,
+              selectedOptions: [
+                { name: 'Color', value: 'Black' },
+                { name: 'Size', value: 'One Size' }
+              ]
+            }
+          }]
+        },
+        options: [
+          { name: 'Color', values: ['Black', 'White'] },
+          { name: 'Size', values: ['One Size'] }
+        ],
+        priceRange: {
+          minVariantPrice: { amount: '299.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '299.99', currencyCode: 'USD' }
+        },
+        tags: ['new', 'wireless', 'premium'],
+        productType: 'Electronics',
+        vendor: 'AudioTech',
+        createdAt: '2024-01-01T00:00:00Z',
+        updatedAt: '2024-01-01T00:00:00Z'
+      }
+    },
+    {
+      node: {
+        id: 'gid://shopify/Product/2',
+        title: 'Eco-Friendly Water Bottle',
+        handle: 'eco-friendly-water-bottle',
+        description: 'Sustainable stainless steel water bottle with double-wall insulation.',
+        images: {
+          edges: [{
+            node: {
+              url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800&h=600&fit=crop',
+              altText: 'Eco-Friendly Water Bottle'
+            }
+          }]
+        },
+        variants: {
+          edges: [{
+            node: {
+              id: 'gid://shopify/ProductVariant/2',
+              title: 'Blue / 500ml',
+              price: { amount: '29.99', currencyCode: 'USD' },
+              compareAtPrice: null,
+              availableForSale: true,
+              selectedOptions: [
+                { name: 'Color', value: 'Blue' },
+                { name: 'Size', value: '500ml' }
+              ]
+            }
+          }]
+        },
+        options: [
+          { name: 'Color', values: ['Blue', 'Green', 'Black'] },
+          { name: 'Size', values: ['500ml', '750ml'] }
+        ],
+        priceRange: {
+          minVariantPrice: { amount: '29.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '29.99', currencyCode: 'USD' }
+        },
+        tags: ['eco-friendly', 'sustainable'],
+        productType: 'Accessories',
+        vendor: 'EcoLife',
+        createdAt: '2024-01-02T00:00:00Z',
+        updatedAt: '2024-01-02T00:00:00Z'
+      }
+    },
+    {
+      node: {
+        id: 'gid://shopify/Product/3',
+        title: 'Organic Cotton T-Shirt',
+        handle: 'organic-cotton-t-shirt',
+        description: 'Soft and comfortable organic cotton t-shirt made from sustainable materials.',
+        images: {
+          edges: [{
+            node: {
+              url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&fit=crop',
+              altText: 'Organic Cotton T-Shirt'
+            }
+          }]
+        },
+        variants: {
+          edges: [{
+            node: {
+              id: 'gid://shopify/ProductVariant/3',
+              title: 'White / M',
+              price: { amount: '24.99', currencyCode: 'USD' },
+              compareAtPrice: null,
+              availableForSale: true,
+              selectedOptions: [
+                { name: 'Color', value: 'White' },
+                { name: 'Size', value: 'M' }
+              ]
+            }
+          }]
+        },
+        options: [
+          { name: 'Color', values: ['White', 'Black', 'Navy'] },
+          { name: 'Size', values: ['S', 'M', 'L', 'XL'] }
+        ],
+        priceRange: {
+          minVariantPrice: { amount: '24.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '24.99', currencyCode: 'USD' }
+        },
+        tags: ['organic', 'cotton'],
+        productType: 'Clothing',
+        vendor: 'GreenWear',
+        createdAt: '2024-01-03T00:00:00Z',
+        updatedAt: '2024-01-03T00:00:00Z'
+      }
+    }
+  ],
+  pageInfo: { hasNextPage: false, endCursor: null }
 };
 
 export interface ShopifyProduct {
@@ -667,11 +807,13 @@ export class ShopifyAPI {
   private domain: string;
   private storefrontToken: string;
   private apiVersion: string;
+  private useMockData: boolean;
 
   constructor() {
     this.domain = SHOPIFY_CONFIG.domain;
     this.storefrontToken = SHOPIFY_CONFIG.storefrontToken;
     this.apiVersion = SHOPIFY_CONFIG.apiVersion;
+    this.useMockData = SHOPIFY_CONFIG.useMockData || false;
   }
 
   private async request(query: string, variables?: any) {
@@ -706,6 +848,12 @@ export class ShopifyAPI {
     sortKey?: string;
     reverse?: boolean;
   } = {}) {
+    if (this.useMockData) {
+      return new Promise(resolve => {
+        setTimeout(() => resolve(MOCK_PRODUCTS), 500); // Simulate API delay
+      });
+    }
+
     const { first = 20, query, sortKey = 'CREATED_AT', reverse = true } = options;
     
     const data = await this.request(SHOPIFY_QUERIES.GET_PRODUCTS, {
@@ -728,6 +876,20 @@ export class ShopifyAPI {
 
   // Cart methods
   async createCart(lines: Array<{ merchandiseId: string; quantity: number }> = []) {
+    if (this.useMockData) {
+      return {
+        id: 'gid://shopify/Cart/mock-cart-id',
+        checkoutUrl: 'https://demo-store.myshopify.com/cart',
+        totalQuantity: 0,
+        cost: {
+          totalAmount: { amount: '0.00', currencyCode: 'USD' },
+          subtotalAmount: { amount: '0.00', currencyCode: 'USD' },
+          totalTaxAmount: { amount: '0.00', currencyCode: 'USD' }
+        },
+        lines: { edges: [] }
+      };
+    }
+
     const data = await this.request(SHOPIFY_QUERIES.CREATE_CART, {
       input: { lines },
     });
@@ -736,6 +898,21 @@ export class ShopifyAPI {
   }
 
   async addToCart(cartId: string, lines: Array<{ merchandiseId: string; quantity: number }>) {
+    if (this.useMockData) {
+      console.log('Mock: Adding to cart', { cartId, lines });
+      return {
+        id: cartId,
+        checkoutUrl: 'https://demo-store.myshopify.com/cart',
+        totalQuantity: 1,
+        cost: {
+          totalAmount: { amount: '29.99', currencyCode: 'USD' },
+          subtotalAmount: { amount: '29.99', currencyCode: 'USD' },
+          totalTaxAmount: { amount: '0.00', currencyCode: 'USD' }
+        },
+        lines: { edges: [] }
+      };
+    }
+
     const data = await this.request(SHOPIFY_QUERIES.ADD_TO_CART, {
       cartId,
       lines,
