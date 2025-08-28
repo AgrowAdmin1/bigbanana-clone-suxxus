@@ -21,7 +21,7 @@ const Index = () => {
   // Fetch products on component mount
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   // Convert ShopifyProduct to Product format for existing components
   const convertedProducts = products.map(product => {
