@@ -9,136 +9,563 @@ export const SHOPIFY_CONFIG = {
 // Mock products for demo
 const MOCK_PRODUCTS = {
   edges: [
+    // New Launches
     {
       node: {
         id: 'gid://shopify/Product/1',
-        title: 'Premium Wireless Headphones',
-        handle: 'premium-wireless-headphones',
-        description: 'High-quality wireless headphones with active noise cancellation and superior sound quality.',
+        title: 'Premium Cotton Blend Shirt',
+        handle: 'premium-cotton-blend-shirt',
+        description: 'Latest premium cotton blend shirt with modern fit and breathable fabric.',
         images: {
-          edges: [{
-            node: {
-              url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop',
-              altText: 'Premium Wireless Headphones'
+          edges: [
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=600&fit=crop',
+                altText: 'Premium Cotton Blend Shirt - Blue'
+              }
+            },
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&h=600&fit=crop',
+                altText: 'Premium Cotton Blend Shirt - White'
+              }
             }
-          }]
+          ]
         },
         variants: {
-          edges: [{
-            node: {
-              id: 'gid://shopify/ProductVariant/1',
-              title: 'Black / One Size',
-              price: { amount: '299.99', currencyCode: 'USD' },
-              compareAtPrice: { amount: '399.99', currencyCode: 'USD' },
-              availableForSale: true,
-              selectedOptions: [
-                { name: 'Color', value: 'Black' },
-                { name: 'Size', value: 'One Size' }
-              ]
+          edges: [
+            {
+              node: {
+                id: 'gid://shopify/ProductVariant/1',
+                title: 'Blue / M',
+                price: { amount: '79.99', currencyCode: 'USD' },
+                compareAtPrice: { amount: '99.99', currencyCode: 'USD' },
+                availableForSale: true,
+                selectedOptions: [
+                  { name: 'Color', value: 'Blue' },
+                  { name: 'Size', value: 'M' }
+                ]
+              }
             }
-          }]
+          ]
         },
         options: [
-          { name: 'Color', values: ['Black', 'White'] },
-          { name: 'Size', values: ['One Size'] }
+          { name: 'Color', values: ['Blue', 'White', 'Black'] },
+          { name: 'Size', values: ['S', 'M', 'L', 'XL', '2XL'] }
         ],
         priceRange: {
-          minVariantPrice: { amount: '299.99', currencyCode: 'USD' },
-          maxVariantPrice: { amount: '299.99', currencyCode: 'USD' }
+          minVariantPrice: { amount: '79.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '79.99', currencyCode: 'USD' }
         },
-        tags: ['new', 'wireless', 'premium'],
-        productType: 'Electronics',
-        vendor: 'AudioTech',
+        tags: ['new', 'premium', 'cotton'],
+        productType: 'New Launches',
+        vendor: 'SUXXUS',
         createdAt: '2024-01-01T00:00:00Z',
         updatedAt: '2024-01-01T00:00:00Z'
       }
     },
+    
+    // Shirts
     {
       node: {
         id: 'gid://shopify/Product/2',
-        title: 'Eco-Friendly Water Bottle',
-        handle: 'eco-friendly-water-bottle',
-        description: 'Sustainable stainless steel water bottle with double-wall insulation.',
+        title: 'Classic Formal Shirt',
+        handle: 'classic-formal-shirt',
+        description: 'Elegant formal shirt perfect for office wear and special occasions.',
         images: {
-          edges: [{
-            node: {
-              url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800&h=600&fit=crop',
-              altText: 'Eco-Friendly Water Bottle'
+          edges: [
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1585598867276-684b8f5ed29e?w=800&h=600&fit=crop',
+                altText: 'Classic Formal Shirt'
+              }
+            },
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=800&h=600&fit=crop',
+                altText: 'Classic Formal Shirt - Detail'
+              }
             }
-          }]
+          ]
         },
         variants: {
-          edges: [{
-            node: {
-              id: 'gid://shopify/ProductVariant/2',
-              title: 'Blue / 500ml',
-              price: { amount: '29.99', currencyCode: 'USD' },
-              compareAtPrice: null,
-              availableForSale: true,
-              selectedOptions: [
-                { name: 'Color', value: 'Blue' },
-                { name: 'Size', value: '500ml' }
-              ]
+          edges: [
+            {
+              node: {
+                id: 'gid://shopify/ProductVariant/2',
+                title: 'White / L',
+                price: { amount: '59.99', currencyCode: 'USD' },
+                compareAtPrice: null,
+                availableForSale: true,
+                selectedOptions: [
+                  { name: 'Color', value: 'White' },
+                  { name: 'Size', value: 'L' }
+                ]
+              }
             }
-          }]
+          ]
         },
         options: [
-          { name: 'Color', values: ['Blue', 'Green', 'Black'] },
-          { name: 'Size', values: ['500ml', '750ml'] }
+          { name: 'Color', values: ['White', 'Light Blue', 'Navy'] },
+          { name: 'Size', values: ['S', 'M', 'L', 'XL', '2XL'] }
         ],
         priceRange: {
-          minVariantPrice: { amount: '29.99', currencyCode: 'USD' },
-          maxVariantPrice: { amount: '29.99', currencyCode: 'USD' }
+          minVariantPrice: { amount: '59.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '59.99', currencyCode: 'USD' }
         },
-        tags: ['eco-friendly', 'sustainable'],
-        productType: 'Accessories',
-        vendor: 'EcoLife',
+        tags: ['formal', 'office'],
+        productType: 'Shirts',
+        vendor: 'SUXXUS',
         createdAt: '2024-01-02T00:00:00Z',
         updatedAt: '2024-01-02T00:00:00Z'
       }
     },
+    
+    // Polo Neck T-Shirts
     {
       node: {
         id: 'gid://shopify/Product/3',
-        title: 'Organic Cotton T-Shirt',
-        handle: 'organic-cotton-t-shirt',
-        description: 'Soft and comfortable organic cotton t-shirt made from sustainable materials.',
+        title: 'Premium Polo Neck T-Shirt',
+        handle: 'premium-polo-neck-tshirt',
+        description: 'Comfortable polo neck t-shirt with premium cotton blend fabric.',
         images: {
-          edges: [{
-            node: {
-              url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&fit=crop',
-              altText: 'Organic Cotton T-Shirt'
+          edges: [
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1618354691373-499fca8afa9f?w=800&h=600&fit=crop',
+                altText: 'Premium Polo Neck T-Shirt'
+              }
+            },
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=800&h=600&fit=crop',
+                altText: 'Premium Polo Neck T-Shirt - Side View'
+              }
             }
-          }]
+          ]
         },
         variants: {
-          edges: [{
-            node: {
-              id: 'gid://shopify/ProductVariant/3',
-              title: 'White / M',
-              price: { amount: '24.99', currencyCode: 'USD' },
-              compareAtPrice: null,
-              availableForSale: true,
-              selectedOptions: [
-                { name: 'Color', value: 'White' },
-                { name: 'Size', value: 'M' }
-              ]
+          edges: [
+            {
+              node: {
+                id: 'gid://shopify/ProductVariant/3',
+                title: 'Navy / M',
+                price: { amount: '44.99', currencyCode: 'USD' },
+                compareAtPrice: { amount: '54.99', currencyCode: 'USD' },
+                availableForSale: true,
+                selectedOptions: [
+                  { name: 'Color', value: 'Navy' },
+                  { name: 'Size', value: 'M' }
+                ]
+              }
             }
-          }]
+          ]
         },
         options: [
-          { name: 'Color', values: ['White', 'Black', 'Navy'] },
-          { name: 'Size', values: ['S', 'M', 'L', 'XL'] }
+          { name: 'Color', values: ['Navy', 'White', 'Black', 'Gray'] },
+          { name: 'Size', values: ['S', 'M', 'L', 'XL', '2XL'] }
+        ],
+        priceRange: {
+          minVariantPrice: { amount: '44.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '44.99', currencyCode: 'USD' }
+        },
+        tags: ['polo', 'casual', 'cotton'],
+        productType: 'Polo Neck T-Shirts',
+        vendor: 'SUXXUS',
+        createdAt: '2024-01-03T00:00:00Z',
+        updatedAt: '2024-01-03T00:00:00Z'
+      }
+    },
+    
+    // Round Neck T-Shirts
+    {
+      node: {
+        id: 'gid://shopify/Product/4',
+        title: 'Essential Round Neck T-Shirt',
+        handle: 'essential-round-neck-tshirt',
+        description: 'Comfortable round neck t-shirt made from 100% organic cotton.',
+        images: {
+          edges: [
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&fit=crop',
+                altText: 'Essential Round Neck T-Shirt'
+              }
+            },
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1583743814966-8936f37f4678?w=800&h=600&fit=crop',
+                altText: 'Essential Round Neck T-Shirt - Back View'
+              }
+            }
+          ]
+        },
+        variants: {
+          edges: [
+            {
+              node: {
+                id: 'gid://shopify/ProductVariant/4',
+                title: 'White / L',
+                price: { amount: '24.99', currencyCode: 'USD' },
+                compareAtPrice: null,
+                availableForSale: true,
+                selectedOptions: [
+                  { name: 'Color', value: 'White' },
+                  { name: 'Size', value: 'L' }
+                ]
+              }
+            }
+          ]
+        },
+        options: [
+          { name: 'Color', values: ['White', 'Black', 'Gray', 'Navy'] },
+          { name: 'Size', values: ['S', 'M', 'L', 'XL', '2XL'] }
         ],
         priceRange: {
           minVariantPrice: { amount: '24.99', currencyCode: 'USD' },
           maxVariantPrice: { amount: '24.99', currencyCode: 'USD' }
         },
-        tags: ['organic', 'cotton'],
-        productType: 'Clothing',
-        vendor: 'GreenWear',
-        createdAt: '2024-01-03T00:00:00Z',
-        updatedAt: '2024-01-03T00:00:00Z'
+        tags: ['organic', 'basic', 'cotton'],
+        productType: 'Round Neck T-Shirts',
+        vendor: 'SUXXUS',
+        createdAt: '2024-01-04T00:00:00Z',
+        updatedAt: '2024-01-04T00:00:00Z'
+      }
+    },
+    
+    // Joggers
+    {
+      node: {
+        id: 'gid://shopify/Product/5',
+        title: 'Athletic Performance Joggers',
+        handle: 'athletic-performance-joggers',
+        description: 'High-performance joggers with moisture-wicking technology and flexible fit.',
+        images: {
+          edges: [
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1575428698297-5c0490c57873?w=800&h=600&fit=crop',
+                altText: 'Athletic Performance Joggers'
+              }
+            },
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&h=600&fit=crop',
+                altText: 'Athletic Performance Joggers - Detail'
+              }
+            }
+          ]
+        },
+        variants: {
+          edges: [
+            {
+              node: {
+                id: 'gid://shopify/ProductVariant/5',
+                title: 'Black / 32',
+                price: { amount: '69.99', currencyCode: 'USD' },
+                compareAtPrice: { amount: '89.99', currencyCode: 'USD' },
+                availableForSale: true,
+                selectedOptions: [
+                  { name: 'Color', value: 'Black' },
+                  { name: 'Size', value: '32' }
+                ]
+              }
+            }
+          ]
+        },
+        options: [
+          { name: 'Color', values: ['Black', 'Navy', 'Gray'] },
+          { name: 'Size', values: ['28', '30', '32', '34', '36'] }
+        ],
+        priceRange: {
+          minVariantPrice: { amount: '69.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '69.99', currencyCode: 'USD' }
+        },
+        tags: ['athletic', 'performance', 'moisture-wicking'],
+        productType: 'Joggers',
+        vendor: 'SUXXUS',
+        createdAt: '2024-01-05T00:00:00Z',
+        updatedAt: '2024-01-05T00:00:00Z'
+      }
+    },
+    
+    // Jeans
+    {
+      node: {
+        id: 'gid://shopify/Product/6',
+        title: 'Classic Slim Fit Jeans',
+        handle: 'classic-slim-fit-jeans',
+        description: 'Premium quality denim jeans with modern slim fit and comfortable stretch.',
+        images: {
+          edges: [
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1591047139829-d91aecb6ca9d?w=800&h=600&fit=crop',
+                altText: 'Classic Slim Fit Jeans'
+              }
+            },
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&h=600&fit=crop',
+                altText: 'Classic Slim Fit Jeans - Detail'
+              }
+            }
+          ]
+        },
+        variants: {
+          edges: [
+            {
+              node: {
+                id: 'gid://shopify/ProductVariant/6',
+                title: 'Dark Blue / 32',
+                price: { amount: '89.99', currencyCode: 'USD' },
+                compareAtPrice: null,
+                availableForSale: true,
+                selectedOptions: [
+                  { name: 'Color', value: 'Dark Blue' },
+                  { name: 'Size', value: '32' }
+                ]
+              }
+            }
+          ]
+        },
+        options: [
+          { name: 'Color', values: ['Dark Blue', 'Light Blue', 'Black'] },
+          { name: 'Size', values: ['28', '30', '32', '34', '36', '38'] }
+        ],
+        priceRange: {
+          minVariantPrice: { amount: '89.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '89.99', currencyCode: 'USD' }
+        },
+        tags: ['denim', 'slim-fit', 'stretch'],
+        productType: 'Jeans',
+        vendor: 'SUXXUS',
+        createdAt: '2024-01-06T00:00:00Z',
+        updatedAt: '2024-01-06T00:00:00Z'
+      }
+    },
+    
+    // Trousers
+    {
+      node: {
+        id: 'gid://shopify/Product/7',
+        title: 'Formal Dress Trousers',
+        handle: 'formal-dress-trousers',
+        description: 'Elegant dress trousers perfect for formal occasions and office wear.',
+        images: {
+          edges: [
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1618354187500-203efd2a9439?w=800&h=600&fit=crop',
+                altText: 'Formal Dress Trousers'
+              }
+            },
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1506629905607-bb5199f27365?w=800&h=600&fit=crop',
+                altText: 'Formal Dress Trousers - Detail'
+              }
+            }
+          ]
+        },
+        variants: {
+          edges: [
+            {
+              node: {
+                id: 'gid://shopify/ProductVariant/7',
+                title: 'Navy / 34',
+                price: { amount: '119.99', currencyCode: 'USD' },
+                compareAtPrice: { amount: '149.99', currencyCode: 'USD' },
+                availableForSale: true,
+                selectedOptions: [
+                  { name: 'Color', value: 'Navy' },
+                  { name: 'Size', value: '34' }
+                ]
+              }
+            }
+          ]
+        },
+        options: [
+          { name: 'Color', values: ['Navy', 'Charcoal', 'Black'] },
+          { name: 'Size', values: ['30', '32', '34', '36', '38'] }
+        ],
+        priceRange: {
+          minVariantPrice: { amount: '119.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '119.99', currencyCode: 'USD' }
+        },
+        tags: ['formal', 'dress', 'office'],
+        productType: 'Trousers',
+        vendor: 'SUXXUS',
+        createdAt: '2024-01-07T00:00:00Z',
+        updatedAt: '2024-01-07T00:00:00Z'
+      }
+    },
+    
+    // Shorts
+    {
+      node: {
+        id: 'gid://shopify/Product/8',
+        title: 'Summer Casual Shorts',
+        handle: 'summer-casual-shorts',
+        description: 'Lightweight and breathable shorts perfect for summer activities and casual wear.',
+        images: {
+          edges: [
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1560243573-30ca208f932c?w=800&h=600&fit=crop',
+                altText: 'Summer Casual Shorts'
+              }
+            },
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1591213962084-59a20c23d0dd?w=800&h=600&fit=crop',
+                altText: 'Summer Casual Shorts - Side View'
+              }
+            }
+          ]
+        },
+        variants: {
+          edges: [
+            {
+              node: {
+                id: 'gid://shopify/ProductVariant/8',
+                title: 'Khaki / 32',
+                price: { amount: '39.99', currencyCode: 'USD' },
+                compareAtPrice: null,
+                availableForSale: true,
+                selectedOptions: [
+                  { name: 'Color', value: 'Khaki' },
+                  { name: 'Size', value: '32' }
+                ]
+              }
+            }
+          ]
+        },
+        options: [
+          { name: 'Color', values: ['Khaki', 'Navy', 'Black', 'Olive'] },
+          { name: 'Size', values: ['28', '30', '32', '34', '36'] }
+        ],
+        priceRange: {
+          minVariantPrice: { amount: '39.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '39.99', currencyCode: 'USD' }
+        },
+        tags: ['summer', 'casual', 'lightweight'],
+        productType: 'Shorts',
+        vendor: 'SUXXUS',
+        createdAt: '2024-01-08T00:00:00Z',
+        updatedAt: '2024-01-08T00:00:00Z'
+      }
+    },
+    
+    // Additional New Launch items
+    {
+      node: {
+        id: 'gid://shopify/Product/9',
+        title: 'Limited Edition Hoodie',
+        handle: 'limited-edition-hoodie',
+        description: 'Exclusive limited edition hoodie with premium materials and unique design.',
+        images: {
+          edges: [
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=600&fit=crop',
+                altText: 'Limited Edition Hoodie'
+              }
+            },
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+                altText: 'Limited Edition Hoodie - Back View'
+              }
+            }
+          ]
+        },
+        variants: {
+          edges: [
+            {
+              node: {
+                id: 'gid://shopify/ProductVariant/9',
+                title: 'Gray / L',
+                price: { amount: '129.99', currencyCode: 'USD' },
+                compareAtPrice: { amount: '159.99', currencyCode: 'USD' },
+                availableForSale: true,
+                selectedOptions: [
+                  { name: 'Color', value: 'Gray' },
+                  { name: 'Size', value: 'L' }
+                ]
+              }
+            }
+          ]
+        },
+        options: [
+          { name: 'Color', values: ['Gray', 'Black', 'Navy'] },
+          { name: 'Size', values: ['S', 'M', 'L', 'XL', '2XL'] }
+        ],
+        priceRange: {
+          minVariantPrice: { amount: '129.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '129.99', currencyCode: 'USD' }
+        },
+        tags: ['new', 'limited-edition', 'premium', 'hoodie'],
+        productType: 'New Launches',
+        vendor: 'SUXXUS',
+        createdAt: '2024-01-09T00:00:00Z',
+        updatedAt: '2024-01-09T00:00:00Z'
+      }
+    },
+
+    // More Shirts
+    {
+      node: {
+        id: 'gid://shopify/Product/10',
+        title: 'Casual Linen Shirt',
+        handle: 'casual-linen-shirt',
+        description: 'Breathable linen shirt perfect for casual outings and warm weather.',
+        images: {
+          edges: [
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&h=600&fit=crop',
+                altText: 'Casual Linen Shirt'
+              }
+            },
+            {
+              node: {
+                url: 'https://images.unsplash.com/photo-1622470952794-61d72cc0a605?w=800&h=600&fit=crop',
+                altText: 'Casual Linen Shirt - Detail'
+              }
+            }
+          ]
+        },
+        variants: {
+          edges: [
+            {
+              node: {
+                id: 'gid://shopify/ProductVariant/10',
+                title: 'Beige / M',
+                price: { amount: '69.99', currencyCode: 'USD' },
+                compareAtPrice: null,
+                availableForSale: true,
+                selectedOptions: [
+                  { name: 'Color', value: 'Beige' },
+                  { name: 'Size', value: 'M' }
+                ]
+              }
+            }
+          ]
+        },
+        options: [
+          { name: 'Color', values: ['Beige', 'White', 'Light Blue'] },
+          { name: 'Size', values: ['S', 'M', 'L', 'XL'] }
+        ],
+        priceRange: {
+          minVariantPrice: { amount: '69.99', currencyCode: 'USD' },
+          maxVariantPrice: { amount: '69.99', currencyCode: 'USD' }
+        },
+        tags: ['linen', 'casual', 'breathable'],
+        productType: 'Shirts',
+        vendor: 'SUXXUS',
+        createdAt: '2024-01-10T00:00:00Z',
+        updatedAt: '2024-01-10T00:00:00Z'
       }
     }
   ],
