@@ -132,6 +132,7 @@ interface ShopifyContextType extends ShopifyState {
   // Wishlist actions
   addToWishlist: (productId: string) => void;
   removeFromWishlist: (productId: string) => void;
+  isInWishlist: (productId: string) => boolean;
   
   // Filter actions
   setSearchQuery: (query: string) => void;
@@ -448,6 +449,10 @@ export const ShopifyProvider = ({ children }: ShopifyProviderProps) => {
     dispatch({ type: 'CLEAR_FILTERS' });
   };
 
+  const isInWishlist = (productId: string) => {
+    return state.wishlist.includes(productId);
+  };
+
   const contextValue: ShopifyContextType = {
     ...state,
     fetchProducts,
@@ -462,6 +467,7 @@ export const ShopifyProvider = ({ children }: ShopifyProviderProps) => {
     signOut,
     addToWishlist,
     removeFromWishlist,
+    isInWishlist,
     setSearchQuery,
     setFilters,
     clearFilters,

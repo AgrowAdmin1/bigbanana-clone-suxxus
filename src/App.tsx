@@ -10,13 +10,15 @@ import Checkout from "./pages/Checkout";
 import UserAccount from "./pages/UserAccount";
 import OrderTracking from "./pages/OrderTracking";
 import NotFound from "./pages/NotFound";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ShopifyProvider } from "./contexts/ShopifyContext";
 import Collection from "./pages/Collection";
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <QueryClient>
+    <QueryClientProvider client={queryClient}>
       <ShopifyProvider>
         <BrowserRouter>
           <div className="min-h-screen bg-background font-sans antialiased">
@@ -33,7 +35,7 @@ function App() {
           </div>
         </BrowserRouter>
       </ShopifyProvider>
-    </QueryClient>
+    </QueryClientProvider>
   );
 }
 
