@@ -3,12 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   onCategorySelect?: (category: string) => void;
 }
 
 const Header = ({ onCategorySelect }: HeaderProps) => {
+  const navigate = useNavigate();
+  
   const mainNavItems = [
     "Home", "New Launches", "Shirts", "Polo Neck T-Shirts", "Round Neck T-Shirts", "Joggers", 
     "Jeans", "Trousers", "Shorts"
@@ -20,6 +23,23 @@ const Header = ({ onCategorySelect }: HeaderProps) => {
     "All Categories", "New Launches", "Shirts", "Polo Neck T-Shirts", "Round Neck T-Shirts", "Joggers", 
     "Jeans", "Trousers", "Shorts"
   ];
+
+  const handleNavItemClick = (item: string) => {
+    if (item === "Home") {
+      navigate("/");
+    } else {
+      navigate(`/collection/${encodeURIComponent(item)}`);
+    }
+    onCategorySelect?.(item);
+  };
+
+  const handleCategorySelect = (category: string) => {
+    if (category === "All Categories") {
+      navigate("/");
+    } else {
+      navigate(`/collection/${encodeURIComponent(category)}`);
+    }
+  };
 
   return (
     <header className="bg-background border-b sticky top-0 z-50">
@@ -47,7 +67,7 @@ const Header = ({ onCategorySelect }: HeaderProps) => {
                 {mainNavItems.map((item, index) => (
                   <button
                     key={index}
-                    onClick={() => onCategorySelect?.(item)}
+                    onClick={() => handleNavItemClick(item)}
                     className="text-left py-2 text-foreground hover:text-accent transition-colors"
                   >
                     {item}
@@ -69,19 +89,19 @@ const Header = ({ onCategorySelect }: HeaderProps) => {
 
           {/* Logo - Center aligned */}
           <div className="flex-1 flex justify-center md:justify-start">
-            <div className="text-center">
+            <button onClick={() => navigate("/")} className="text-center">
               <h1 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
                 SUXXUS
               </h1>
               <p className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider">
                 international
               </p>
-            </div>
+            </button>
           </div>
 
           {/* Search bar with category dropdown - Hidden on mobile */}
           <div className="hidden md:flex flex-1 max-w-md mx-8 gap-2">
-            <Select>
+            <Select onValueChange={handleCategorySelect}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
@@ -125,7 +145,7 @@ const Header = ({ onCategorySelect }: HeaderProps) => {
             {mainNavItems.map((item, index) => (
               <button
                 key={index}
-                onClick={() => onCategorySelect?.(item)}
+                onClick={() => handleNavItemClick(item)}
                 className="text-foreground hover:text-accent transition-colors duration-smooth font-medium"
               >
                 {item}
