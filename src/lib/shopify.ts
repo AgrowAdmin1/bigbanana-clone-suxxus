@@ -1,7 +1,7 @@
 // Shopify Storefront API configuration and utilities
 export const SHOPIFY_CONFIG = {
-  domain: process.env.VITE_SHOPIFY_DOMAIN || 'demo-store.myshopify.com',
-  storefrontToken: process.env.VITE_SHOPIFY_STOREFRONT_TOKEN || 'demo-token',
+  domain: import.meta.env.VITE_SHOPIFY_DOMAIN || 'demo-store.myshopify.com',
+  storefrontToken: import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || 'demo-token',
   apiVersion: '2024-01',
   useMockData: true // Enable mock data for demo
 };
