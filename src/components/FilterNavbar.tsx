@@ -1,6 +1,8 @@
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface FilterNavbarProps {
   selectedCategory?: string;
@@ -8,6 +10,8 @@ interface FilterNavbarProps {
 
 const FilterNavbar = ({ selectedCategory }: FilterNavbarProps) => {
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const navigate = useNavigate();
+  const { category } = useParams();
 
   // Define categories that should show size filters
   const categoriesWithSizes = ["New Launches", "Shirts", "Polo Neck T-Shirts", "Round Neck T-Shirts", "Joggers", "Jeans", "Trousers", "Shorts"];
@@ -31,15 +35,25 @@ const FilterNavbar = ({ selectedCategory }: FilterNavbarProps) => {
   const sizes = getSizes(selectedCategory);
 
   const toggleSize = (size: string) => {
-    setSelectedSizes(prev => 
-      prev.includes(size) 
-        ? prev.filter(s => s !== size)
-        : [...prev, size]
-    );
+    const newSelectedSizes = selectedSizes.includes(size) 
+      ? selectedSizes.filter(s => s !== size)
+      : [...selectedSizes, size];
+    
+    setSelectedSizes(newSelectedSizes);
+    
+    // Navigate to collection page with size filter
+    if (newSelectedSizes.length > 0) {
+      const searchParams = new URLSearchParams();
+      searchParams.set('size', newSelectedSizes[0]); // For simplicity, use first selected size
+      navigate(`/collection/${encodeURIComponent(selectedCategory)}?${searchParams.toString()}`);
+    } else {
+      navigate(`/collection/${encodeURIComponent(selectedCategory)}`);
+    }
   };
 
   const clearAllFilters = () => {
     setSelectedSizes([]);
+    navigate(`/collection/${encodeURIComponent(selectedCategory)}`);
   };
 
   return (

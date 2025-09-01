@@ -1,102 +1,112 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNavigate } from 'react-router-dom';
 
 const CategoryGrid = () => {
+  const navigate = useNavigate();
+
   const categories = [
     {
-      id: 1,
+      name: "New Launches",
+      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
+      description: "Latest arrivals and trending styles"
+    },
+    {
       name: "Shirts",
-      description: "Premium casual shirts",
-      icon: "👔",
-      gradient: "from-brand-cream to-brand-sand"
+      image: "https://images.unsplash.com/photo-1585580533049-a9922c653531?w=800&h=600&fit=crop",
+      description: "Classic and modern shirts for every occasion"
     },
     {
-      id: 2,
-      name: "Shorts",
-      description: "Comfortable summer shorts",
-      icon: "🩳",
-      gradient: "from-brand-sand to-brand-amber"
+      name: "Polo Neck T-Shirts",
+      image: "https://images.unsplash.com/photo-1618354691373-499fca8afa9f?w=800&h=600&fit=crop",
+      description: "Stylish polo neck t-shirts for a smart casual look"
     },
     {
-      id: 3,
-      name: "Polo",
-      description: "Classic polo collection",
-      icon: "👕",
-      gradient: "from-brand-amber to-brand-gold"
+      name: "Round Neck T-Shirts",
+      image: "https://images.unsplash.com/photo-1516253084785-a277a51480c3?w=800&h=600&fit=crop",
+      description: "Comfortable round neck t-shirts for everyday wear"
     },
     {
-      id: 4,
-      name: "Henley",
-      description: "Stylish henley tees",
-      icon: "👔",
-      gradient: "from-brand-gold to-brand-brown"
+      name: "Hoodies & Sweatshirts",
+      image: "https://images.unsplash.com/photo-1533960459849-78a8e975339c?w=800&h=600&fit=crop",
+      description: "Cozy hoodies and sweatshirts for ultimate comfort"
     },
     {
-      id: 5,
-      name: "Trackpant",
-      description: "Athletic trackpants",
-      icon: "👖",
-      gradient: "from-brand-brown to-brand-sand"
-    },
-    {
-      id: 6,
       name: "Jackets",
-      description: "Premium outerwear",
-      icon: "🧥",
-      gradient: "from-brand-cream to-brand-amber"
-    }
+      image: "https://images.unsplash.com/photo-1551488831-00ddcb63a820?w=800&h=600&fit=crop",
+      description: "Stylish jackets to keep you warm and protected"
+    },
+    {
+      name: "Track Pants",
+      image: "https://images.unsplash.com/photo-1618354715186-64c4725a2d0f?w=800&h=600&fit=crop",
+      description: "Comfortable and stylish track pants for workouts and casual wear"
+    },
+    {
+      name: "Joggers",
+      image: "https://images.unsplash.com/photo-1575428698297-5c0490c57873?w=800&h=600&fit=crop",
+      description: "Trendy joggers for a relaxed and sporty look"
+    },
+    {
+      name: "Jeans",
+      image: "https://images.unsplash.com/photo-1591047139829-d91aecb6ca9d?w=800&h=600&fit=crop",
+      description: "Classic and modern jeans for every style"
+    },
+    {
+      name: "Trousers",
+      image: "https://images.unsplash.com/photo-1618354187500-203efd2a9439?w=800&h=600&fit=crop",
+      description: "Formal and casual trousers for a sophisticated look"
+    },
+    {
+      name: "Shorts",
+      image: "https://images.unsplash.com/photo-1560243573-30ca208f932c?w=800&h=600&fit=crop",
+      description: "Comfortable and stylish shorts for warm weather"
+    },
+    {
+      name: "Boxers",
+      image: "https://images.unsplash.com/photo-1624555723945-08f92a8223a0?w=800&h=600&fit=crop",
+      description: "Comfortable and breathable boxers for everyday wear"
+    },
   ];
+
+  const handleCategoryClick = (categoryName: string) => {
+    navigate(`/collection/${encodeURIComponent(categoryName)}`);
+  };
 
   return (
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Featured Collection
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore our carefully curated selection of premium clothing designed for modern lifestyle
+          <h2 className="text-3xl font-bold text-foreground mb-4">Shop by Category</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Discover our carefully curated collections designed for every occasion and style preference
           </p>
         </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-          {categories.map((category) => (
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {categories.map((category, index) => (
             <Card 
-              key={category.id} 
-              className="group relative overflow-hidden border-0 shadow-card hover:shadow-glow transition-all duration-smooth cursor-pointer"
+              key={index} 
+              className="group cursor-pointer overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300"
+              onClick={() => handleCategoryClick(category.name)}
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-80`}></div>
-              
-              <div className="relative p-6 text-center text-primary min-h-[200px] flex flex-col justify-center">
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-bounce">
-                  {category.icon}
-                </div>
-                <h3 className="text-lg font-bold mb-2 group-hover:scale-105 transition-transform duration-smooth">
-                  {category.name}
-                </h3>
-                <p className="text-sm opacity-80 mb-4">
-                  {category.description}
-                </p>
-                
-                <Button 
-                  variant="secondary" 
-                  size="sm" 
-                  className="mt-auto bg-background/90 text-primary border-primary/20 hover:bg-background hover:border-primary/40 backdrop-blur-sm"
-                >
-                  Shop Now
-                </Button>
+              <div className="aspect-w-3 aspect-h-2 overflow-hidden bg-muted">
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                />
               </div>
-
-              {/* Hover effect overlay */}
-              <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-smooth"></div>
+              <CardContent className="p-4">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg font-semibold leading-tight line-clamp-1">
+                    {category.name}
+                  </CardTitle>
+                  <CardDescription className="text-sm text-muted-foreground line-clamp-2">
+                    {category.description}
+                  </CardDescription>
+                </CardHeader>
+              </CardContent>
             </Card>
           ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Button size="lg" className="bg-gradient-hero text-primary hover:opacity-90 border border-primary/20">
-            View All Categories
-          </Button>
         </div>
       </div>
     </section>
