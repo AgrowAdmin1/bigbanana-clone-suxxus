@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useReducer, useEffect, ReactNode, useCallback } from 'react';
 import { shopifyAPI, ShopifyProduct, ShopifyCart, ShopifyCustomer } from '@/lib/shopify';
 import { useToast } from '@/hooks/use-toast';
 
@@ -185,7 +185,7 @@ export const ShopifyProvider = ({ children }: ShopifyProviderProps) => {
   }, []);
 
   // Product actions
-  const fetchProducts = async (options: { query?: string; sortKey?: string; reverse?: boolean } = {}) => {
+  const fetchProducts = useCallback(async (options: { query?: string; sortKey?: string; reverse?: boolean } = {}) => {
     dispatch({ type: 'SET_PRODUCTS_LOADING', payload: true });
     try {
       const products = await shopifyAPI.getProducts(options);
@@ -200,9 +200,9 @@ export const ShopifyProvider = ({ children }: ShopifyProviderProps) => {
     } finally {
       dispatch({ type: 'SET_PRODUCTS_LOADING', payload: false });
     }
-  };
+  }, [toast]);
 
-  const fetchProductByHandle = async (handle: string) => {
+  const fetchProductByHandle = useCallback(async (handle: string) => {
     dispatch({ type: 'SET_PRODUCT_LOADING', payload: true });
     try {
       const product = await shopifyAPI.getProductByHandle(handle);
@@ -217,12 +217,12 @@ export const ShopifyProvider = ({ children }: ShopifyProviderProps) => {
     } finally {
       dispatch({ type: 'SET_PRODUCT_LOADING', payload: false });
     }
-  };
+  }, [toast]);
 
-  const searchProducts = async (query: string) => {
+  const searchProducts = useCallback(async (query: string) => {
     dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
     await fetchProducts({ query });
-  };
+  }, [fetchProducts]);
 
   // Cart actions
   const createCart = async () => {
@@ -437,17 +437,17 @@ export const ShopifyProvider = ({ children }: ShopifyProviderProps) => {
   };
 
   // Filter actions
-  const setSearchQuery = (query: string) => {
+  const setSearchQuery = useCallback((query: string) => {
     dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
-  };
+  }, []);
 
-  const setFilters = (filters: ShopifyState['selectedFilters']) => {
+  const setFilters = useCallback((filters: ShopifyState['selectedFilters']) => {
     dispatch({ type: 'SET_FILTERS', payload: filters });
-  };
+  }, []);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     dispatch({ type: 'CLEAR_FILTERS' });
-  };
+  }, []);
 
   const isInWishlist = (productId: string) => {
     return state.wishlist.includes(productId);

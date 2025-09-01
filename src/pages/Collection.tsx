@@ -5,6 +5,7 @@ import { useShopifyProducts } from '@/hooks/useShopifyProducts';
 import { useShopify } from '@/contexts/ShopifyContext';
 import ProductGallery from '@/components/ProductGallery';
 import FilterNavbar from '@/components/FilterNavbar';
+import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Loader2 } from 'lucide-react';
@@ -20,9 +21,9 @@ const Collection = () => {
   const [sortBy, setSortBy] = useState('newest');
 
   useEffect(() => {
-    // Fetch products when component mounts
+    // Fetch products when component mounts or category changes
     fetchProducts();
-  }, [fetchProducts]);
+  }, []);
 
   useEffect(() => {
     // Apply category and size filters
@@ -68,6 +69,7 @@ const Collection = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       <FilterNavbar selectedCategory={category ? decodeURIComponent(category) : undefined} />
       
       <div className="container mx-auto px-4 py-8">
