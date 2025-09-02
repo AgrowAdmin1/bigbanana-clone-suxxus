@@ -8,7 +8,7 @@ import FilterNavbar from '@/components/FilterNavbar';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Collection = () => {
   const { category } = useParams<{ category: string }>();
@@ -19,6 +19,8 @@ const Collection = () => {
   const { filteredProducts, setFilters, filterOptions } = useShopifyProducts();
   
   const [sortBy, setSortBy] = useState('newest');
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
 
   useEffect(() => {
     // Fetch products when component mounts or category changes
@@ -59,6 +61,31 @@ const Collection = () => {
     }
   });
 
+  // Pagination logic
+  const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+  const currentProducts = sortedProducts.slice(startIndex, endIndex);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [category, selectedSize, sortBy]);
+
   if (productsLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -87,7 +114,7 @@ const Collection = () => {
                 </div>
               )}
               <p className="text-muted-foreground mt-1">
-                {sortedProducts.length} products found
+                {sortedProducts.length} products found | Page {currentPage} of {totalPages}
               </p>
             </div>
             
@@ -111,11 +138,54 @@ const Collection = () => {
 
         {/* Products Grid */}
         {sortedProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {sortedProducts.map((product) => (
-              <ProductGallery key={product.id} product={product} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {currentProducts.map((product) => (
+                <ProductGallery key={product.id} product={product} />
+              ))}
+            </div>
+            
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-4 mt-12">
+                <Button 
+                  variant="outline" 
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 1}
+                  className="flex items-center gap-2"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  Previous
+                </Button>
+                
+                <div className="flex items-center gap-2">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <Button
+                      key={page}
+                      variant={currentPage === page ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => {
+                        setCurrentPage(page);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                    >
+                      {page}
+                    </Button>
+                  ))}
+                </div>
+                
+                <Button 
+                  variant="outline" 
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                  className="flex items-center gap-2"
+                >
+                  Next
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-12">
             <p className="text-muted-foreground text-lg">No products found</p>
