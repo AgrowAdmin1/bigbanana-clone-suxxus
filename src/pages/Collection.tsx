@@ -14,8 +14,6 @@ const Collection = () => {
   const { category } = useParams<{ category: string }>();
   const [searchParams] = useSearchParams();
   const selectedSize = searchParams.get('size');
-  const minPrice = searchParams.get('minPrice');
-  const maxPrice = searchParams.get('maxPrice');
   
   const { fetchProducts, productsLoading } = useShopify();
   const { filteredProducts, setFilters, filterOptions } = useShopifyProducts();
@@ -30,7 +28,7 @@ const Collection = () => {
   }, []);
 
   useEffect(() => {
-    // Apply category, size, and price filters
+    // Apply category and size filters
     const filters: any = {};
     
     if (category) {
@@ -38,15 +36,13 @@ const Collection = () => {
     }
     
     if (selectedSize) {
+      // This would need to be implemented based on how sizes are stored in your products
+      // For now, we'll use tags as an example
       filters.tags = [selectedSize];
     }
     
-    if (minPrice && maxPrice) {
-      filters.priceRange = [parseInt(minPrice), parseInt(maxPrice)];
-    }
-    
     setFilters(filters);
-  }, [category, selectedSize, minPrice, maxPrice, setFilters]);
+  }, [category, selectedSize, setFilters]);
 
   const sortedProducts = filteredProducts.sort((a, b) => {
     switch (sortBy) {
@@ -88,7 +84,7 @@ const Collection = () => {
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [category, selectedSize, minPrice, maxPrice, sortBy]);
+  }, [category, selectedSize, sortBy]);
 
   if (productsLoading) {
     return (
@@ -115,12 +111,6 @@ const Collection = () => {
                 <div className="flex items-center gap-2 mt-2">
                   <span className="text-muted-foreground">Size:</span>
                   <Badge variant="default">{selectedSize}</Badge>
-                </div>
-              )}
-              {minPrice && maxPrice && (
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-muted-foreground">Price:</span>
-                  <Badge variant="outline">${minPrice} - ${maxPrice}</Badge>
                 </div>
               )}
               <p className="text-muted-foreground mt-1">
