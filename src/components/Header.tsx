@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
+import { useShopify } from "@/contexts/ShopifyContext";
+import ShopifyAuthForm from "./ShopifyAuthForm";
+import ShoppingCartComponent from "./ShoppingCart";
 
 interface HeaderProps {
   onCategorySelect?: (category: string) => void;
@@ -11,6 +15,13 @@ interface HeaderProps {
 
 const Header = ({ onCategorySelect }: HeaderProps) => {
   const navigate = useNavigate();
+  const { 
+    cart, 
+    isAuthenticated, 
+    addToCart, 
+    updateCartLine, 
+    removeFromCart 
+  } = useShopify();
   
   const mainNavItems = [
     "Home", "New Launches", "Shirts", "Polo Neck T-Shirts", "Round Neck T-Shirts", "Joggers", 
@@ -40,6 +51,29 @@ const Header = ({ onCategorySelect }: HeaderProps) => {
       navigate(`/collection/${encodeURIComponent(category)}`);
     }
   };
+
+  const handleAccountClick = () => {
+    if (isAuthenticated) {
+      navigate("/account");
+    }
+  };
+
+  const handleCartCheckout = () => {
+    navigate("/checkout");
+  };
+
+  const cartItems = cart?.lines?.edges?.map(edge => ({
+    id: edge.node.id,
+    productId: edge.node.merchandise.product.id,
+    name: edge.node.merchandise.product.title,
+    price: parseFloat(edge.node.merchandise.price.amount),
+    image: edge.node.merchandise.image?.url || '/placeholder.svg',
+    size: edge.node.merchandise.selectedOptions?.find(opt => opt.name === 'Size')?.value || '',
+    color: edge.node.merchandise.selectedOptions?.find(opt => opt.name === 'Color')?.value || '',
+    quantity: edge.node.quantity,
+  })) || [];
+
+  const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <header className="bg-background border-b sticky top-0 z-50">
@@ -127,15 +161,36 @@ const Header = ({ onCategorySelect }: HeaderProps) => {
             <Button variant="ghost" size="icon" className="md:hidden">
               <Search className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                0
-              </span>
-            </Button>
+            
+            {/* Account Button */}
+            {isAuthenticated ? (
+              <Button variant="ghost" size="icon" onClick={handleAccountClick}>
+                <User className="h-5 w-5" />
+              </Button>
+            ) : (
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <ShopifyAuthForm />
+                </DialogContent>
+              </Dialog>
+            )}
+            
+            {/* Shopping Cart */}
+            <ShoppingCartComponent
+              items={cartItems}
+              onUpdateQuantity={(itemId, quantity) => {
+                updateCartLine(itemId, quantity);
+              }}
+              onRemoveItem={(itemId) => {
+                removeFromCart(itemId);
+              }}
+              onCheckout={handleCartCheckout}
+            />
           </div>
         </div>
 
