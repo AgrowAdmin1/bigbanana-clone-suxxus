@@ -1,4 +1,6 @@
 // Shopify Storefront API configuration and utilities
+import { generateProducts } from './mockProductGenerator';
+
 export const SHOPIFY_CONFIG = {
   domain: import.meta.env.VITE_SHOPIFY_DOMAIN || 'demo-store.myshopify.com',
   storefrontToken: import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || 'demo-token',

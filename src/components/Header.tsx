@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useShopify } from "@/contexts/ShopifyContext";
 import ShopifyAuthForm from "./ShopifyAuthForm";
 import ShoppingCartComponent from "./ShoppingCart";
+import HoverNavigation from "./HoverNavigation";
 
 interface HeaderProps {
   onCategorySelect?: (category: string) => void;
@@ -196,17 +197,7 @@ const Header = ({ onCategorySelect }: HeaderProps) => {
 
         {/* Navigation menu - Hidden on mobile */}
         <nav className="hidden md:flex mt-4 border-t pt-4">
-          <div className="flex flex-wrap items-center gap-6 text-sm">
-            {mainNavItems.map((item, index) => (
-              <button
-                key={index}
-                onClick={() => handleNavItemClick(item)}
-                className="text-foreground hover:text-accent transition-colors duration-smooth font-medium"
-              >
-                {item}
-              </button>
-            ))}
-          </div>
+          <HoverNavigation onCategorySelect={onCategorySelect} />
         </nav>
       </div>
     </header>

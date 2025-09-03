@@ -14,6 +14,8 @@ const Collection = () => {
   const { category } = useParams<{ category: string }>();
   const [searchParams] = useSearchParams();
   const selectedSize = searchParams.get('size');
+  const minPrice = searchParams.get('minPrice');
+  const maxPrice = searchParams.get('maxPrice');
   
   const { fetchProducts, productsLoading } = useShopify();
   const { filteredProducts, setFilters, filterOptions } = useShopifyProducts();
@@ -41,8 +43,15 @@ const Collection = () => {
       filters.tags = [selectedSize];
     }
     
+    if (minPrice || maxPrice) {
+      filters.priceRange = {
+        min: minPrice ? parseFloat(minPrice) : 0,
+        max: maxPrice ? parseFloat(maxPrice) : 1000
+      };
+    }
+    
     setFilters(filters);
-  }, [category, selectedSize, setFilters]);
+  }, [category, selectedSize, minPrice, maxPrice, setFilters]);
 
   const sortedProducts = filteredProducts.sort((a, b) => {
     switch (sortBy) {
@@ -84,7 +93,7 @@ const Collection = () => {
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [category, selectedSize, sortBy]);
+  }, [category, selectedSize, minPrice, maxPrice, sortBy]);
 
   if (productsLoading) {
     return (
@@ -107,12 +116,22 @@ const Collection = () => {
               <h1 className="text-3xl font-bold text-foreground">
                 {category ? decodeURIComponent(category) : 'All Products'}
               </h1>
-              {selectedSize && (
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-muted-foreground">Size:</span>
-                  <Badge variant="default">{selectedSize}</Badge>
-                </div>
-              )}
+              <div className="flex flex-wrap items-center gap-2 mt-2">
+                {selectedSize && (
+                  <>
+                    <span className="text-muted-foreground">Size:</span>
+                    <Badge variant="default">{selectedSize}</Badge>
+                  </>
+                )}
+                {(minPrice || maxPrice) && (
+                  <>
+                    <span className="text-muted-foreground">Price:</span>
+                    <Badge variant="secondary">
+                      ${minPrice || '0'} - ${maxPrice || '300'}
+                    </Badge>
+                  </>
+                )}
+              </div>
               <p className="text-muted-foreground mt-1">
                 {sortedProducts.length} products found | Page {currentPage} of {totalPages}
               </p>
